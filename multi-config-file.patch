@@ -1,0 +1,11 @@
+--- moonraker-telegram-bot/bot/main.py	2022-02-09 22:58:13.000000000 -0500
++++ moonraker-telegram-bot/bot/main-patched.py	2022-02-09 22:58:55.000000000 -0500
+@@ -889,7 +889,7 @@
+     # Todo: os.chdir(Path(sys.path[0]).parent.absolute())
+     os.chdir(sys.path[0])
+ 
+-    conf.read(system_args.configfile)
++    conf.read([os.fspath(p) for p in Path(system_args.configfile).absolute().glob("*")])
+     configWrap = ConfigWrapper(conf)
+ 
+     if not configWrap.bot.log_path == '/tmp':
